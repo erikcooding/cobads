@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Ocean Love</title>
+<style>
+    body {
+        margin: 0;
+        background: linear-gradient(180deg, #00c6ff, #0072ff);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: 'Segoe Script', cursive;
+    }
+
+    /* Cahaya lembut */
+    body::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 70%);
+        animation: lightmove 6s infinite alternate;
+    }
+    @keyframes lightmove {
+        0% { transform: translate(-10%, -10%); }
+        100% { transform: translate(10%, 10%); }
+    }
+
+    /* Love besar */
+    .heart {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        transform: rotate(-45deg);
+        animation: pulse 1s infinite;
+        box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+        z-index: 10;
+    }
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        border-radius: 50%;
+    }
+    .heart::before {
+        top: -100px;
+        left: 0;
+    }
+    .heart::after {
+        left: 100px;
+        top: 0;
+    }
+    @keyframes pulse {
+        0% { transform: rotate(-45deg) scale(1); }
+        50% { transform: rotate(-45deg) scale(1.15); }
+        100% { transform: rotate(-45deg) scale(1); }
+    }
+
+    /* Foto jatuh */
+    .photo {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        animation: fall linear;
+    }
+    @keyframes fall {
+        0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Gelembung */
+    .bubble {
+        position: absolute;
+        bottom: -100px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        animation: rise linear;
+    }
+    @keyframes rise {
+        0% { transform: translateY(0) scale(1); opacity: 0.8; }
+        100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Hati kecil */
+    .small-heart {
+        position: absolute;
+        font-size: 20px;
+        color: pink;
+        animation: heartFall linear;
+    }
+    @keyframes heartFall {
+        0% { transform: translateY(-20px); opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="heart"></div>
+
+<!-- Musik romantis -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Foto acak
+    const photos = [
+        "https://picsum.photos/100?random=1",
+        "https://picsum.photos/100?random=2",
+        "https://picsum.photos/100?random=3",
+        "https://picsum.photos/100?random=4",
+        "https://picsum.photos/100?random=5"
+    ];
+
+    function createFallingPhoto() {
+        const img = document.createElement("img");
+        img.src = photos[Math.floor(Math.random() * photos.length)];
+        img.classList.add("photo");
+
+        // Posisi kiri atau kanan
+        if (Math.random() > 0.5) {
+            img.style.left = Math.random() * (window.innerWidth / 2 - 80) + "px";
+        } else {
+            img.style.left = (window.innerWidth / 2) + Math.random() * (window.innerWidth / 2 - 80) + "px";
+        }
+
+        img.style.top = "-100px";
+        img.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(img);
+
+        setTimeout(() => img.remove(), 6000);
+    }
+
+    // Gelembung acak
+    function createBubble() {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const size = Math.random() * 20 + 10;
+        bubble.style.width = size + "px";
+        bubble.style.height = size + "px";
+        bubble.style.left = Math.random() * window.innerWidth + "px";
+        bubble.style.animationDuration = (Math.random() * 5 + 3) + "s";
+        document.body.appendChild(bubble);
+
+        setTimeout(() => bubble.remove(), 8000);
+    }
+
+    // Hati kecil
+    function createSmallHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("small-heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createFallingPhoto, 1000);
+    setInterval(createBubble, 200);
+    setInterval(createSmallHeart, 300);
+</script>
+
+</body>
+</html>

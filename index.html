@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Love Surprise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe Script', cursive;
+            overflow: hidden;
+            height: 100vh;
+            background: #000;
+            transition: background 1s ease;
+        }
+
+        /* Entrance Screen */
+        .entrance-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff4d6d, #2c003e);
+            z-index: 100;
+            transition: all 1s ease;
+        }
+
+        .entrance-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .enter-btn {
+            padding: 10px 30px;
+            font-size: 1.4em;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            font-family: 'Segoe Script', sans-serif;
+        }
+
+        .enter-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .enter-title {
+            font-size: 35px;
+            color: rgb(255, 213, 213);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(218, 0, 0, 0.8);
+            animation: glow 2s infinite;
+        }
+
+        /* Main Content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 1s ease;
+            position: relative;
+        }
+
+        .container.show {
+            opacity: 1;
+        }
+
+        h1 {
+            font-size: 3em;
+            animation: glow 2s infinite;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin: 20px 0;
+            max-width: 80%;
+            line-height: 1.5;
+            color: white;
+        }
+
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.7),
+                        0 0 60px rgba(255, 0, 0, 0.5);
+            overflow: hidden;
+            margin: 20px 0;
+            animation: float 4s ease-in-out infinite, sway 8s ease-in-out infinite;
+            position: relative;
+        }
+
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: pulse 1s infinite;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.7);
+            margin: 20px 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .music-control {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .song-title {
+            color: white;
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.1); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px red, 0 0 20px pink, 0 0 30px red; }
+            50% { text-shadow: 0 0 20px pink, 0 0 40px red, 0 0 60px pink; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            font-size: 20px;
+            color: pink;
+            animation: fall linear;
+            z-index: 0;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: floatBubble linear;
+            z-index: 0;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 24px;
+            animation: floatFlower linear;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        }
+
+        @keyframes floatBubble {
+            0% { 
+                transform: translateY(0) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(20px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatFlower {
+            0% { 
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Background */
+        .main-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #ff4d6d, #2c003e);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Entrance Screen -->
+    <div class="entrance-screen">
+        <h1 class="enter-title">For You My Love</h1>
+        <button class="enter-btn">Click For Surprise</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-bg"></div>
+        
+        <h1>I ❤️ You Forever</h1>
+        
+        <div class="photo-frame">
+            <img class="photo" src="cew.jpeg" alt="My Love">
+        </div>
+
+        <h1 id="dan">JULMAINDAH</h1>
+        
+        <div class="heart"></div>
+        
+        <div class="message">
+            Every time I see your so Beautiful<br>
+            My heart skips a beat.<br>
+            You're the love of my life.
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" style="display: none;">
+        <button class="music-control" id="playBtn">▶️</button>
+        <span class="song-title">A Thousand Years - Christina Perri</span>
+        <audio id="bgMusic" loop>
+            <source src="Westlife - Beautiful in white (Lyrics) (320).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        // Entrance Button
+        const enterBtn = document.querySelector('.enter-btn');
+        const entranceScreen = document.querySelector('.entrance-screen');
+        const container = document.querySelector('.container');
+        const musicPlayer = document.querySelector('.music-player');
+        const bgMusic = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        
+        // List of romantic songs (replace with your own URLs)
+        const songs = [
+            { title: "Perfect", url: "lagu1.mp3" },
+        ];
+        
+        let currentSong = 0;
+        
+        enterBtn.addEventListener('click', () => {
+            // Hide entrance screen
+            entranceScreen.classList.add('hidden');
+            
+            // Show main content
+            setTimeout(() => {
+                container.classList.add('show');
+                musicPlayer.style.display = 'flex';
+                
+                // Start animations
+                startAnimations();
+                
+                // Play music
+                bgMusic.src = songs[currentSong].url;
+                bgMusic.play();
+                document.querySelector('.song-title').textContent = songs[currentSong].title;
+            }, 500);
+        });
+        
+        // Music controls
+        playBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                playBtn.textContent = "⏸️";
+            } else {
+                bgMusic.pause();
+                playBtn.textContent = "▶️";
+            }
+        });
+        
+        // Next song function (you could add a button for this)
+        function nextSong() {
+            currentSong = (currentSong + 1) % songs.length;
+            bgMusic.src = songs[currentSong].url;
+            bgMusic.play();
+            document.querySelector('.song-title').textContent = songs[currentSong].title;
+            playBtn.textContent = "⏸️";
+        }
+        
+        // Animation functions
+        function startAnimations() {
+            setInterval(createParticle, 150);
+            setInterval(createBubble, 300);
+            setInterval(createFlower, 500);
+        }
+        
+        function createParticle() {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            particle.innerHTML = "❤️";
+            particle.style.left = Math.random() * window.innerWidth + "px";
+            particle.style.top = "-20px";
+            particle.style.fontSize = Math.random() * 20 + 10 + "px";
+            particle.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+        
+        function createBubble() {
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+            
+            const size = Math.random() * 50 + 20;
+            bubble.style.width = size + "px";
+            bubble.style.height = size + "px";
+            bubble.style.left = Math.random() * window.innerWidth + "px";
+            bubble.style.bottom = "-50px";
+            bubble.style.animationDuration = (Math.random() * 10 + 5) + "s";
+            bubble.style.boxShadow = `0 0 ${size/2}px rgba(255, 255, 255, 0.5)`;
+            
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 15000);
+        }
+        
+        function createFlower() {
+            const flowers = ["🌸", "🌹", "💐", "🌺", "🌷", "🥀", "🌻", "💮"];
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.left = Math.random() * window.innerWidth + "px";
+            flower.style.bottom = "-30px";
+            flower.style.fontSize = Math.random() * 20 + 15 + "px";
+            flower.style.animationDuration = (Math.random() * 8 + 5) + "s";
+            document.body.appendChild(flower);
+            
+            setTimeout(() => {
+                flower.remove();
+            }, 13000);
+        }
+        
+        // Change photo on click
+        document.querySelector('.photo-frame').addEventListener('click', function() {
+            const photos = [
+                'cew.jpeg'
+            
+            ];
+            const currentSrc = this.querySelector('img').src;
+            let newIndex = (photos.indexOf(currentSrc.split('/').pop()) + 1) % photos.length;
+            this.querySelector('img').src = photos[newIndex];
+        });
+    </script>
+</body>
+</html>
