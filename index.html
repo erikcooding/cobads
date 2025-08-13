@@ -1,436 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Love Surprise</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Romantic Love Surprise</title>
+  <style>
+    /* === RESET === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe Script', cursive;
-            overflow: hidden;
-            height: 100vh;
-            background: #000;
-            transition: background 1s ease;
-        }
+    body {
+      font-family: 'Segoe Script', cursive;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000;
+      transition: background 1s ease;
+    }
 
-        /* Entrance Screen */
-        .entrance-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #ff4d6d, #2c003e);
-            z-index: 100;
-            transition: all 1s ease;
-        }
+    /* === ENTRANCE SCREEN === */
+    .entrance-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #ff4d6d, #2c003e);
+      z-index: 100;
+      transition: opacity 1s ease;
+    }
 
-        .entrance-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+    .entrance-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        .enter-btn {
-            padding: 10px 30px;
-            font-size: 1.4em;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-            font-family: 'Segoe Script', sans-serif;
-        }
+    .enter-title {
+      font-size: 2.5em;
+      color: #ffd5d5;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(218, 0, 0, 0.8);
+      animation: glow 2s infinite;
+    }
 
-        .enter-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
+    .enter-btn {
+      padding: 12px 35px;
+      font-size: 1.3em;
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      border-radius: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
 
-        .enter-title {
-            font-size: 35px;
-            color: rgb(255, 213, 213);
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(218, 0, 0, 0.8);
-            animation: glow 2s infinite;
-        }
+    .enter-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
 
-        /* Main Content */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: 100vh;
-            opacity: 0;
-            transition: opacity 1s ease;
-            position: relative;
-        }
+    /* === MAIN CONTAINER === */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      opacity: 0;
+      transition: opacity 1s ease;
+      position: relative;
+    }
 
-        .container.show {
-            opacity: 1;
-        }
+    .container.show {
+      opacity: 1;
+    }
 
-        h1 {
-            font-size: 3em;
-            animation: glow 2s infinite;
-            margin-bottom: 20px;
-            color: white;
-        }
+    .main-bg {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #ff4d6d, #2c003e);
+      z-index: -1;
+    }
 
-        .message {
-            font-size: 1.5em;
-            margin: 20px 0;
-            max-width: 80%;
-            line-height: 1.5;
-            color: white;
-        }
+    h1 {
+      font-size: 2.8em;
+      color: white;
+      margin: 10px 0;
+      animation: glow 2s infinite;
+    }
 
-        .photo-frame {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.7),
-                        0 0 60px rgba(255, 0, 0, 0.5);
-            overflow: hidden;
-            margin: 20px 0;
-            animation: float 4s ease-in-out infinite, sway 8s ease-in-out infinite;
-            position: relative;
-        }
+    .message {
+      font-size: 1.4em;
+      max-width: 80%;
+      margin-top: 20px;
+      color: white;
+      line-height: 1.6;
+    }
 
-        .photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .photo-frame {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 5px solid white;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.7),
+                  0 0 60px rgba(255, 0, 0, 0.5);
+      margin: 20px 0;
+      animation: float 4s ease-in-out infinite, sway 8s ease-in-out infinite;
+    }
 
-        .heart {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            transform: rotate(-45deg);
-            animation: pulse 1s infinite;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.7);
-            margin: 20px 0;
-        }
+    .photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            border-radius: 50%;
-        }
+    .heart {
+      width: 100px;
+      height: 100px;
+      background: red;
+      transform: rotate(-45deg);
+      position: relative;
+      animation: pulse 1s infinite;
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.7);
+      margin: 20px;
+    }
 
-        .heart::before {
-            top: -50px;
-            left: 0;
-        }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50%;
+    }
 
-        .heart::after {
-            left: 50px;
-            top: 0;
-        }
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
 
-        /* Music Player */
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
-            z-index: 10;
-        }
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
 
-        .music-control {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
+    /* === MUSIC PLAYER === */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
 
-        .song-title {
-            color: white;
-            font-size: 0.9em;
-        }
+    .music-control {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
 
-        /* Animations */
-        @keyframes pulse {
-            0% { transform: rotate(-45deg) scale(1); }
-            50% { transform: rotate(-45deg) scale(1.1); }
-            100% { transform: rotate(-45deg) scale(1); }
-        }
+    .song-title {
+      color: white;
+      font-size: 0.9em;
+    }
 
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px red, 0 0 20px pink, 0 0 30px red; }
-            50% { text-shadow: 0 0 20px pink, 0 0 40px red, 0 0 60px pink; }
-        }
+    /* === PARTICLES === */
+    .particle, .bubble, .flower {
+      position: absolute;
+      z-index: 0;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
+    .particle {
+      font-size: 20px;
+      color: pink;
+      animation: fall linear;
+    }
 
-        @keyframes sway {
-            0%, 100% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-        }
+    .bubble {
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: floatBubble linear;
+    }
 
-        /* Particles */
-        .particle {
-            position: absolute;
-            font-size: 20px;
-            color: pink;
-            animation: fall linear;
-            z-index: 0;
-        }
+    .flower {
+      font-size: 24px;
+      animation: floatFlower linear;
+    }
 
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            animation: floatBubble linear;
-            z-index: 0;
-        }
+    /* === ANIMATIONS === */
+    @keyframes pulse {
+      0% { transform: rotate(-45deg) scale(1); }
+      50% { transform: rotate(-45deg) scale(1.1); }
+      100% { transform: rotate(-45deg) scale(1); }
+    }
 
-        .flower {
-            position: absolute;
-            font-size: 24px;
-            animation: floatFlower linear;
-            z-index: 0;
-        }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px red, 0 0 20px pink, 0 0 30px red; }
+      50% { text-shadow: 0 0 20px pink, 0 0 40px red, 0 0 60px pink; }
+    }
 
-        @keyframes fall {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
 
-        @keyframes floatBubble {
-            0% { 
-                transform: translateY(0) translateX(0) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.5;
-            }
-            100% { 
-                transform: translateY(-100vh) translateX(20px) scale(1.2);
-                opacity: 0;
-            }
-        }
+    @keyframes sway {
+      0%, 100% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+    }
 
-        @keyframes floatFlower {
-            0% { 
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            100% { 
-                transform: translateY(-100vh) translateX(50px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    @keyframes fall {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    }
 
-        /* Background */
-        .main-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #ff4d6d, #2c003e);
-            z-index: -1;
-        }
-    </style>
+    @keyframes floatBubble {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      10% { opacity: 0.5; }
+      100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+
+    @keyframes floatFlower {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Entrance Screen -->
-    <div class="entrance-screen">
-        <h1 class="enter-title">For You My Love</h1>
-        <button class="enter-btn">Click For Surprise</button>
+
+  <!-- Entrance -->
+  <div class="entrance-screen">
+    <h1 class="enter-title">For You My Love</h1>
+    <button class="enter-btn">Click For Surprise</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="main-bg"></div>
+
+    <h1>I ❤️ You Forever</h1>
+
+    <div class="photo-frame">
+      <img class="photo" src="IMG-20250813-WA0004.jpg" alt="My Love">
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="main-bg"></div>
-        
-        <h1>I ❤️ You Forever</h1>
-        
-        <div class="photo-frame">
-            <img class="photo" src="IMG-20250813-WA0004.jpg" alt="My Love">
-        </div>
+    <h1>Leni</h1>
 
-        <h1 id="dan">Leni</h1>
-        
-        <div class="heart"></div>
-        
-        <div class="message">
-            Every time I see your so Beautiful<br>
-            My heart skips a beat.<br>
-            You're the love of my life.
-        </div>
+    <div class="heart"></div>
+
+    <div class="message">
+      Every time I see you so beautiful,<br />
+      My heart skips a beat.<br />
+      You're the love of my life.
     </div>
+  </div>
 
-    <!-- Music Player -->
-    <div class="music-player" style="display: none;">
-        <button class="music-control" id="playBtn">▶️</button>
-        <span class="song-title">A Thousand Years - Christina Perri</span>
-        <audio id="bgMusic" loop>
-            <source src="Westlife - Beautiful in white (Lyrics) (320).mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
+  <!-- Music Player -->
+  <div class="music-player">
+    <button class="music-control" id="playBtn">▶️</button>
+    <span class="song-title">Loading...</span>
+    <audio id="bgMusic" loop></audio>
+  </div>
 
-    <script>
-        // Entrance Button
-        const enterBtn = document.querySelector('.enter-btn');
-        const entranceScreen = document.querySelector('.entrance-screen');
-        const container = document.querySelector('.container');
-        const musicPlayer = document.querySelector('.music-player');
-        const bgMusic = document.getElementById('bgMusic');
-        const playBtn = document.getElementById('playBtn');
-        
-        // List of romantic songs (replace with your own URLs)
-        const songs = [
-            { title: "Perfect", url: "lagu1.mp3" },
-        ];
-        
-        let currentSong = 0;
-        
-        enterBtn.addEventListener('click', () => {
-            // Hide entrance screen
-            entranceScreen.classList.add('hidden');
-            
-            // Show main content
-            setTimeout(() => {
-                container.classList.add('show');
-                musicPlayer.style.display = 'flex';
-                
-                // Start animations
-                startAnimations();
-                
-                // Play music
-                bgMusic.src = songs[currentSong].url;
-                bgMusic.play();
-                document.querySelector('.song-title').textContent = songs[currentSong].title;
-            }, 500);
-        });
-        
-        // Music controls
-        playBtn.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                playBtn.textContent = "⏸️";
-            } else {
-                bgMusic.pause();
-                playBtn.textContent = "▶️";
-            }
-        });
-        
-        // Next song function (you could add a button for this)
-        function nextSong() {
-            currentSong = (currentSong + 1) % songs.length;
-            bgMusic.src = songs[currentSong].url;
-            bgMusic.play();
-            document.querySelector('.song-title').textContent = songs[currentSong].title;
-            playBtn.textContent = "⏸️";
-        }
-        
-        // Animation functions
-        function startAnimations() {
-            setInterval(createParticle, 150);
-            setInterval(createBubble, 300);
-            setInterval(createFlower, 500);
-        }
-        
-        function createParticle() {
-            const particle = document.createElement("div");
-            particle.classList.add("particle");
-            particle.innerHTML = "❤️";
-            particle.style.left = Math.random() * window.innerWidth + "px";
-            particle.style.top = "-20px";
-            particle.style.fontSize = Math.random() * 20 + 10 + "px";
-            particle.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 5000);
-        }
-        
-        function createBubble() {
-            const bubble = document.createElement("div");
-            bubble.classList.add("bubble");
-            
-            const size = Math.random() * 50 + 20;
-            bubble.style.width = size + "px";
-            bubble.style.height = size + "px";
-            bubble.style.left = Math.random() * window.innerWidth + "px";
-            bubble.style.bottom = "-50px";
-            bubble.style.animationDuration = (Math.random() * 10 + 5) + "s";
-            bubble.style.boxShadow = `0 0 ${size/2}px rgba(255, 255, 255, 0.5)`;
-            
-            document.body.appendChild(bubble);
-            
-            setTimeout(() => {
-                bubble.remove();
-            }, 15000);
-        }
-        
-        function createFlower() {
-            const flowers = ["🌸", "🌹", "💐", "🌺", "🌷", "🥀", "🌻", "💮"];
-            const flower = document.createElement("div");
-            flower.classList.add("flower");
-            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-            flower.style.left = Math.random() * window.innerWidth + "px";
-            flower.style.bottom = "-30px";
-            flower.style.fontSize = Math.random() * 20 + 15 + "px";
-            flower.style.animationDuration = (Math.random() * 8 + 5) + "s";
-            document.body.appendChild(flower);
-            
-            setTimeout(() => {
-                flower.remove();
-            }, 13000);
-        }
-        
-        // Change photo on click
-        document.querySelector('.photo-frame').addEventListener('click', function() {
-            const photos = [
-                'cew.jpeg'
-            
-            ];
-            const currentSrc = this.querySelector('img').src;
-            let newIndex = (photos.indexOf(currentSrc.split('/').pop()) + 1) % photos.length;
-            this.querySelector('img').src = photos[newIndex];
-        });
-    </script>
+
+      <script>
+    const enterBtn = document.querySelector('.enter-btn');
+    const entranceScreen = document.querySelector('.entrance-screen');
+    const container = document.querySelector('.container');
+    const musicPlayer = document.querySelector('.music-player');
+    const bgMusic = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+
+    // Lagu romantis (bisa tambahkan lebih banyak)
+    const songs = [
+      { title: "Perfect - Ed Sheeran", url: "perfect.mp3" },
+      { title: "Beautiful in White - Westlife", url: "beautiful_in_white.mp3" },
+      { title: "A Thousand Years - Christina Perri", url: "a_thousand_years.mp3" }
+    ];
+    let currentSong = 0;
+
+    // Saat tombol masuk ditekan
+    enterBtn.addEventListener('click', () => {
+      entranceScreen.classList.add('hidden');
+
+      setTimeout(() => {
+        container.classList.add('show');
+        musicPlayer.style.display = 'flex';
+        startAnimations();
+        playMusic(currentSong);
+      }, 600);
+    });
+
+    // Kontrol musik play/pause
+    playBtn.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        playBtn.textContent = '⏸️';
+      } else {
+        bgMusic.pause();
+        playBtn.textContent = '▶️';
+      }
+    });
+
+    // Ganti lagu
+    function playMusic(index) {
+      bgMusic.src = songs[index].url;
+      bgMusic.play();
+      playBtn.textContent = '⏸️';
+      document.querySelector('.song-title').textContent = songs[index].title;
+    }
+
+    // Animasi Partikel, Bubble, dan Flower
+    function startAnimations() {
+      setInterval(createParticle, 150);
+      setInterval(createBubble, 400);
+      setInterval(createFlower, 800);
+    }
+
+    function createParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      particle.innerHTML = "❤️";
+      particle.style.left = Math.random() * window.innerWidth + "px";
+      particle.style.top = "-20px";
+      particle.style.fontSize = Math.random() * 20 + 10 + "px";
+      particle.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 5000);
+    }
+
+    function createBubble() {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      const size = Math.random() * 50 + 20;
+      bubble.style.width = size + "px";
+      bubble.style.height = size + "px";
+      bubble.style.left = Math.random() * window.innerWidth + "px";
+      bubble.style.bottom = "-50px";
+      bubble.style.animationDuration = (Math.random() * 10 + 5) + "s";
+      bubble.style.boxShadow = `0 0 ${size / 2}px rgba(255,255,255,0.5)`;
+      document.body.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 15000);
+    }
+
+    function createFlower() {
+      const flowers = ["🌸", "🌹", "💐", "🌺", "🌷", "🥀", "🌻", "💮"];
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+      flower.style.left = Math.random() * window.innerWidth + "px";
+      flower.style.bottom = "-30px";
+      flower.style.fontSize = Math.random() * 20 + 15 + "px";
+      flower.style.animationDuration = (Math.random() * 8 + 5) + "s";
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 13000);
+    }
+
+    // Klik foto untuk mengganti gambar
+    const photoFrame = document.querySelector('.photo-frame');
+    const photo = photoFrame.querySelector('.photo');
+    const photoList = [
+      'IMG-20250813-WA0004.jpg',
+      'cew.jpeg',
+      'foto_love2.jpg' // tambahkan sesuai kebutuhan
+    ];
+
+    let currentPhoto = 0;
+    photoFrame.addEventListener('click', () => {
+      currentPhoto = (currentPhoto + 1) % photoList.length;
+      photo.src = photoList[currentPhoto];
+    });
+  </script>
 </body>
-
 </html>
-
 
