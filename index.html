@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Love Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe Script', cursive;
+      background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fad0c4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .dashboard {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .dashboard h1 {
+      font-size: 3em;
+      margin-bottom: 30px;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 0, 102, 0.7);
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 40px;
+      font-size: 1.3em;
+      color: white;
+      background: rgba(255, 0, 102, 0.7);
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 0, 102, 0.5);
+    }
+
+    .btn:hover {
+      background: rgba(255, 0, 102, 1);
+      transform: scale(1.05);
+    }
+
+    .heart-emoji {
+      font-size: 50px;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="heart-emoji">❤️</div>
+    <h1>Welcome My Love</h1>
+    <a href="home.html" class="btn">Open Your Surprise</a>
+  </div>
+
+</body>
+</html>
